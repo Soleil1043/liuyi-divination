@@ -19,7 +19,7 @@
 
 <!-- 数据层 -->
 - [x] T003: 卦典数据（64 卦卦名/爻符/八宫/世爻/卦爻辞原文/乾坤用辞） | 依赖: T001 | 涉及文件: src/data/hexagrams.json / src/data/types.ts / tests/ | 验收: 完整性测试通过——64 卦齐全、每卦 6 爻辞、binaryKey 无重复、乾坤含用九用六；原文经维基文库公版抽查核对 | 覆盖: F03, F04
-- [ ] T004: 白话译文数据（64 卦 + 386 条爻辞，AI 起草初稿） | 依赖: T003 | 涉及文件: src/data/hexagrams.json | 验收: 完整性测试通过——每卦 guaci.vernacular 与 6 条 yaoci[].vernacular 均非空 | 覆盖: F04
+- [x] T004: 白话译文数据（64 卦 + 386 条爻辞，AI 起草初稿） | 依赖: T003 | 涉及文件: src/data/hexagrams.json | 验收: 完整性测试通过——每卦 guaci.vernacular 与 6 条 yaoci[].vernacular 均非空 | 覆盖: F04
 
 <!-- 排盘引擎层 -->
 - [ ] T005: 摇卦随机引擎（三枚铜钱 → 6/7/8/9 爻值，RNG 可注入） | 依赖: T001 | 涉及文件: src/engine/types.ts / src/engine/cast.ts / tests/engine/cast.spec.ts | 验收: 确定性 RNG 注入断言单次结果；大样本比例测试通过（老阳/老阴/少阳/少阴 = 1/8, 1/8, 3/8, 3/8，±2% 容差） | 覆盖: F02
@@ -51,6 +51,6 @@
 ## 进度统计
 
 - 总任务数：15
-- 已完成：3
+- 已完成：4
 - 进行中：0
-- 待开始：12
+- 待开始：11

@@ -18,6 +18,15 @@ export interface SpecialCi {
   text: TextPair
 }
 
+/** 白话译文条目（按卦序号组织，与 hexagrams.json 的原文分开存放） */
+export interface VernacularEntry {
+  guaci: string
+  /** 自下而上 6 条 */
+  yaoci: string[]
+  /** 仅乾坤：用九/用六 的白话 */
+  special?: string
+}
+
 export interface Hexagram {
   /** 文王卦序 1–64 */
   number: number
