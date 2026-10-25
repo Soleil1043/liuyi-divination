@@ -273,7 +273,30 @@
 
 **状态**：✅ 通过验证
 
-**Git**：`feat: T011 摇卦页（铜钱动画+逐爻点亮+防抖）`
+**Git**：`29a4f05` feat: T011 摇卦页（铜钱动画+逐爻点亮+防抖）
+
+### [T012] 结果页 UI — 2026-10-26 04:02
+
+**操作**：
+- 实现结果页：排盘表 + 双卦象 + 解读 + 所问编辑 + 流转接线
+
+**涉及文件**：
+- `src/ui/components/PaipanTable.vue` — 传统排盘表：时间/四柱/旬空 meta 行；六神 | 世应+六亲+纳甲+(空)|伏神 | 爻象(○老阳/×老阴) | 变出列；本卦卦名+卦宫/变卦表头
+- `src/ui/components/ReadingPanel.vue` — 按 Citation 渲染：主引文高亮卡、白话在前原文在后（左侧金线引用块）；标注来源（卦辞/某爻/用辞）与规则备注
+- `src/ui/views/ResultView.vue` — 组合页：所问编辑（失焦保存 emit）、本卦/变卦 LineStack 并排（560px+ 双列）、动爻数摘要、排盘表、解读、再摇一卦
+- `src/App.vue` — done → 切 result 并传 pendingResult；questionChange 同步暂存；again → 清空回 casting（CastView v-if 重建自然重置）
+
+**lint 修正**：PaipanTable 全角空格（no-irregular-whitespace）；Reading 单词组件名 → ReadingPanel（vue/multi-word-component-names）
+
+**验证方式**：
+- `npm run test` ✅ 71 passed（门禁）
+- `npm run lint` ✅、`npm run build` ✅、dev HTTP 200
+- 视觉与流转待用户浏览器目验
+- 记录：产物 461 kB（gzip 161 kB），lunar-javascript 进入主 bundle——代码分割留待 T015 部署环节优化
+
+**状态**：✅ 通过验证
+
+**Git**：`feat: T012 结果页（排盘表+解读+编辑所问）`
 
 ---
 

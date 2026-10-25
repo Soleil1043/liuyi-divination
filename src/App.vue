@@ -11,8 +11,22 @@ type ViewId = 'casting' | 'result' | 'history'
 
 const currentView = ref<ViewId>('casting')
 
-/** 摇卦完成的卦例（question/lines/castAt），T012 由结果页消费并落库 */
+/** 摇卦完成的卦例（question/lines/castAt），结果页消费；T013 接入历史落库 */
 const pendingResult = ref<{ question: string; lines: YaoValue[]; castAt: Date } | null>(null)
+
+function onDone(payload: { question: string; lines: YaoValue[]; castAt: Date }): void {
+  pendingResult.value = payload
+  currentView.value = 'result'
+}
+
+function onQuestionChange(question: string): void {
+  if (pendingResult.value) pendingResult.value.question = question
+}
+
+function onAgain(): void {
+  pendingResult.value = null
+  currentView.value = 'casting'
+}
 </script>
 
 <template>
@@ -30,8 +44,15 @@ const pendingResult = ref<{ question: string; lines: YaoValue[]; castAt: Date } 
     </header>
 
     <main class="app-main">
-      <CastView v-if="currentView === 'casting'" @done="pendingResult = $event" />
-      <ResultView v-else-if="currentView === 'result'" />
+      <CastView v-if="currentView === 'casting'" @done="onDone" />
+      <ResultView
+        v-else-if="currentView === 'result' && pendingResult"
+        :question="pendingResult.question"
+        :lines="pendingResult.lines"
+        :cast-at="pendingResult.castAt"
+        @question-change="onQuestionChange"
+        @again="onAgain"
+      />
       <HistoryView v-else />
     </main>
 
