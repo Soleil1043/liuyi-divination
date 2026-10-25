@@ -119,7 +119,25 @@
 
 **状态**：✅ 通过验证
 
-**Git**：`feat: T004 白话译文数据（450条初稿）`
+**Git**：`2c5e46b` feat: T004 白话译文数据（450条初稿）
+
+### [T005] 摇卦随机引擎 — 2026-10-25 19:18
+
+**操作**：
+- 实现三枚铜钱定一爻的纯函数，RNG 可注入
+
+**涉及文件**：
+- `src/engine/types.ts` — CoinSide（字/背）、YaoValue（6/7/8/9）、CastResult
+- `src/engine/cast.ts` — `castOneYao(rng?)`、`backsToValue`（3背老阳9/2背少阴8/1背少阳7/0背老阴6）
+- `tests/engine/cast.spec.ts` — 映射穷举、确定性注入（恒背/恒字/混合序列）、LCG 同种子复现、20 万样本分布（1/8,1/8,3/8,3/8 ±2 个百分点）
+
+**验证方式**：
+- `npm run test` ✅ 18 passed（4 文件）——首次执行 AGENTS.md 新增的"每任务先过测试门禁"
+- `npm run lint` ✅、`npm run build` ✅
+
+**状态**：✅ 通过验证
+
+**Git**：`feat: T005 摇卦随机引擎（RNG可注入+概率测试）`
 
 ---
 
