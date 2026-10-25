@@ -67,11 +67,14 @@ function readAll(s: Storage): HexagramRecord[] {
   }
 }
 
-/** 全部卦例，按保存时间降序（新在前） */
+/** 全部卦例，按保存时间降序（新在前）；同毫秒写入时后保存的在前（CI 曾暴露同毫秒排序歧义） */
 export function list(): HexagramRecord[] {
   const s = usableStorage()
   if (!s) return []
-  return readAll(s).sort((a, b) => b.savedAt.localeCompare(a.savedAt))
+  return readAll(s)
+    .map((record, index) => ({ record, index }))
+    .sort((a, b) => b.record.savedAt.localeCompare(a.record.savedAt) || b.index - a.index)
+    .map((x) => x.record)
 }
 
 /** 成卦自动保存（F05）；存储不可用返回 null（E06 降级） */

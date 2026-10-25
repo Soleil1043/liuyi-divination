@@ -350,3 +350,5 @@
 | P02 | T003 | progress.md 二次编辑失误，T003 条目插入 T001/T002 之间致 T002 正文失头 | 按"只追加"原则整体重写日志区，恢复 T001→T002→T003 顺序；后续追加一律锚定文件末尾 | 已解决 |
 | P03 | T006 | dayXunKong 同余解法死循环（n+=10 步进 n%10 恒定），测试挂死无输出 | 重写为 n+=12 步进（同奇偶保证 5 步内命中）+ 安全上限抛错 | 已解决 |
 | P04 | T006 | lunar-javascript sect 流派编号解读颠倒（误用 sect 1 导致晚子时日柱进位） | 裸 node 探针实测：sect 2 = 日柱不进位（spec E04 所需）；显式 setSect(2) 并在 d.ts 注释实测语义 | 已解决 |
+| P05 | T013/T015 | list() 排序歧义：两次 save 落同一毫秒时 savedAt 相等，稳定排序保持插入序导致"新记录在前"断言失败。CI 首跑暴露；T013 本地首跑那次"偶发失败"实为同一 bug，当时误判为 vitest 并发抖动 | 排序加索引 tie-break（同时间戳后写入的在前）；教训：本地偶发失败必须查明根因，不能以"复跑即绿"结案 | 已解决 |
+| P06 | T015 | github.com HTTPS 直连被重置、git 全局代理 7897 上游失效（gh api 直连 api.github.com 正常） | 改走 ssh.github.com:443：ssh-keygen 生成密钥、gh api 上传公钥、~/.ssh/config 配 Host github.com→ssh.github.com:443，remote 切 SSH 后推送成功 | 已解决 |
