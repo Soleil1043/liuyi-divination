@@ -339,6 +339,40 @@
 
 **Git**：`feat: T014 CI 流水线（GitHub Actions lint+test+build）`
 
+### [T015] 部署与文档（收官） — 2026-10-26 05:02
+
+**操作**：
+- 部署链路：deploy.yml（Pages Actions 构建发布）+ vite base=/liuyi-divination/（项目页子路径）
+- 首屏优化（T012 遗留项落地）：ResultView defineAsyncComponent——首屏 461→155 kB（gzip 162→58 kB），lunar 排盘链拆为按需 chunk
+- 文档：README 全量重写（特性/快速开始/技术栈/架构/免责声明/MIT + CI 徽章）、LICENSE（MIT）
+- 开源发布：gh repo create Soleil1043/liuyi-divination（public）+ push
+- 网络问题解决（P06）：github.com HTTPS 被阻 + 代理失效 → ssh.github.com:443 + gh api 上传密钥，remote 切 SSH
+- CI 首跑失败（P05）：list() 同毫秒排序歧义（真实 bug，T013 本地首跑"抖动"实为同因）→ 排序 tie-break 修复
+
+**涉及文件**：
+- `.github/workflows/deploy.yml` / `LICENSE` / `README.md` / `vite.config.ts`（base）/ `src/App.vue`（异步组件）/ `src/storage/records.ts`（sort 修复）
+
+**验证方式**：
+- `npm run test` ✅ 78 passed（两轮）、`npm run lint` ✅、`npm run build` ✅
+- GitHub Actions：CI ✅ success（23s）、Deploy to GitHub Pages ✅ success（33s）
+- 线上验证：https://soleil1043.github.io/liuyi-divination/ → HTTP 200，HTML/资源路径正确
+- 仓库：https://github.com/Soleil1043/liuyi-divination（public，MIT）
+
+**状态**：✅ 通过验证
+
+**Git**：`feat: T015 部署配置与文档（Pages+README+LICENSE+首屏分包）` + `fix: T013 list 排序同毫秒 tie-break（CI 暴露）`
+
+---
+
+## 构建完成总结 — 2026-10-26
+
+**全部 15 个任务完成**，产品上线：https://soleil1043.github.io/liuyi-divination/
+
+- 需求覆盖：F01 所问之事（摇前必填/摇后可编辑/今日一占）、F02 铜钱摇卦（点击式/概率正确/动效）、F03 完整排盘（najia 参照全量交叉验证）、F04 变占法解读（白话+原文，0–6 动爻全覆盖）、F05 历史卦例（自动保存/回看/编辑/删除）
+- 异常覆盖：E01 空输入拦截、E02 中断不落库、E03 摇卦防抖、E04 早晚子时、E05 极端卦取辞、E06 存储降级
+- 质量基线：78 个测试全绿（引擎 golden 12 卦例 + najia 64 卦全量比对 + 权威历法锚点）、ESLint/类型检查通过、CI 双流水线全绿
+- 后续可选项（非任务）：白话译文作者校对润色（vernacular.json）、历史导出备份、视觉细节打磨
+
 ---
 
 ## 问题追踪
