@@ -18,7 +18,7 @@
 - [x] T002: 主题与视图骨架（甲·鎏金暗夜 design tokens + App.vue 三视图状态机） | 依赖: T001 | 涉及文件: src/ui/theme.css / src/App.vue / src/app.css / src/ui/views/ 空壳 | 验收: dev 打开可见暗色金调页面骨架，三视图可手动切换占位 | 覆盖: 无（基础设施）
 
 <!-- 数据层 -->
-- [ ] T003: 卦典数据（64 卦卦名/爻符/八宫/世爻/卦爻辞原文/乾坤用辞） | 依赖: T001 | 涉及文件: src/data/hexagrams.json / src/data/types.ts / tests/ | 验收: 完整性测试通过——64 卦齐全、每卦 6 爻辞、binaryKey 无重复、乾坤含用九用六；原文经维基文库公版抽查核对 | 覆盖: F03, F04
+- [x] T003: 卦典数据（64 卦卦名/爻符/八宫/世爻/卦爻辞原文/乾坤用辞） | 依赖: T001 | 涉及文件: src/data/hexagrams.json / src/data/types.ts / tests/ | 验收: 完整性测试通过——64 卦齐全、每卦 6 爻辞、binaryKey 无重复、乾坤含用九用六；原文经维基文库公版抽查核对 | 覆盖: F03, F04
 - [ ] T004: 白话译文数据（64 卦 + 386 条爻辞，AI 起草初稿） | 依赖: T003 | 涉及文件: src/data/hexagrams.json | 验收: 完整性测试通过——每卦 guaci.vernacular 与 6 条 yaoci[].vernacular 均非空 | 覆盖: F04
 
 <!-- 排盘引擎层 -->
@@ -51,6 +51,6 @@
 ## 进度统计
 
 - 总任务数：15
-- 已完成：2
+- 已完成：3
 - 进行中：0
-- 待开始：13
+- 待开始：12
