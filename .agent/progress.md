@@ -168,7 +168,28 @@
 
 **状态**：✅ 通过验证
 
-**Git**：`feat: T006 历法引擎（四柱+旬空+早晚子时）`
+**Git**：`1294d88` feat: T006 历法引擎（四柱+旬空+早晚子时）
+
+### [T007] 纳甲装卦（映射 + 干支） — 2026-10-25 19:57
+
+**操作**：
+- 实现爻值序列 ↔ 卦的映射与本卦/变卦解析、京房纳甲装卦
+
+**涉及文件**：
+- `src/engine/hexagram.ts` — `linesToBinaryKey` / `movingLines` / `transformedBinaryKey` / `resolveHexagrams`（无动爻 → 无变卦）
+- `src/engine/najia.ts` — 八经卦纳甲表 + `najiaOf(hex)`（内卦取表 0–2 位、外卦取 3–5 位）
+- `tests/fixtures/najia-expected.json` — 参照数据：本机 pip 安装 bopo/najia 2.0.1（Python，MIT）生成，64 卦全量
+- `tests/engine/najia.spec.ts` — 映射用例（全静/单动/全动/多动/非法输入）+ 64 卦纳甲逐爻比对 + 八纯卦抽查
+
+**验证方式**：
+- `npm run test` ✅ 35 passed（6 文件，新增 7 个）；64 卦纳甲与 najia 全量一致
+- `npm run lint` ✅、`npm run build` ✅
+
+**自查修正**：初写多动爻用例时想当然把静爻也翻转（误期望"火水未济"），复核规则后修正为静爻不变、变卦坤为地——由测试驱动暴露的推卦理解偏差
+
+**状态**：✅ 通过验证
+
+**Git**：`feat: T007 纳甲装卦（映射+干支，najia全量比对）`
 
 ---
 
