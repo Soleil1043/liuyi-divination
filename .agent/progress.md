@@ -48,7 +48,27 @@
 
 **状态**：✅ 通过验证
 
-**Git**：`feat: T001 工程脚手架（Vite+Vue3+TS+Vitest+ESLint）`
+**Git**：`f42948e` feat: T001 工程脚手架（Vite+Vue3+TS+Vitest+ESLint）
+
+### [T002] 主题与视图骨架（甲·鎏金暗夜） — 2026-10-25 18:41
+
+**操作**：
+- 落地 design tokens 与全局样式，搭好三视图状态机骨架
+
+**涉及文件**：
+- `src/ui/theme.css` — 色彩/字体/圆角间距 tokens + body 基础样式（墨黑底 + 鎏金微光渐变）
+- `src/app.css` — 应用骨架（720px 单列居中、页头/导航/页脚/占位面板样式）
+- `src/App.vue` — 三视图状态机（casting/result/history），导航含临时「结果」入口（T011/T012 接通后移除）
+- `src/ui/views/CastView.vue` / `ResultView.vue` / `HistoryView.vue` — 视图占位壳
+- `src/main.ts` — 引入两个样式文件
+
+**验证方式**：
+- `npm run lint` ✅、`npm run test` ✅ 1 passed、`npm run build` ✅（CSS 产物 2.07 kB 含主题）
+- `npm run dev` ✅ HTTP 200，theme.css 经 Vite 编译注入、tokens 齐全；三视图按钮可切换占位（待用户浏览器目验）
+
+**状态**：✅ 通过验证
+
+**Git**：`feat: T002 主题与视图骨架（鎏金暗夜）`
 
 ---
 

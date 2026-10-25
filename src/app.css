@@ -1,0 +1,93 @@
+/* 应用骨架布局：单列纵向流，max-width 720px 居中（plan.md §7） */
+.app-shell {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: var(--space-page);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-gap);
+  padding-bottom: var(--space-gap);
+  border-bottom: 1px solid var(--color-line);
+}
+
+.app-title {
+  margin: 0;
+  font-size: 1.5rem;
+  letter-spacing: 0.35em;
+  color: var(--color-gold-bright);
+  font-weight: 600;
+}
+
+.app-nav {
+  display: flex;
+  gap: 8px;
+}
+
+.app-nav button {
+  appearance: none;
+  background: transparent;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-control);
+  color: var(--color-paper-dim);
+  font-family: inherit;
+  font-size: 0.95rem;
+  letter-spacing: 0.15em;
+  padding: 6px 16px;
+  cursor: pointer;
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.app-nav button:hover {
+  color: var(--color-gold-bright);
+  border-color: var(--color-gold);
+}
+
+.app-nav button.active {
+  color: var(--color-gold-bright);
+  border-color: var(--color-gold);
+  background: rgba(201, 165, 92, 0.08);
+}
+
+.app-main {
+  flex: 1;
+  padding: var(--space-gap) 0;
+}
+
+.app-footer {
+  padding-top: var(--space-gap);
+  border-top: 1px solid var(--color-line);
+  color: var(--color-paper-dim);
+  font-size: 0.8rem;
+  text-align: center;
+  letter-spacing: 0.1em;
+}
+
+/* 视图占位面板（T011–T013 逐个替换为真实内容） */
+.view-placeholder {
+  background: var(--color-panel);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-panel);
+  padding: 48px var(--space-page);
+  text-align: center;
+}
+
+.view-placeholder h2 {
+  margin: 0 0 12px;
+  color: var(--color-gold);
+  letter-spacing: 0.25em;
+}
+
+.view-placeholder p {
+  margin: 0;
+  color: var(--color-paper-dim);
+  font-size: 0.9rem;
+}

@@ -1,0 +1,42 @@
+/* 甲·鎏金暗夜 — design tokens（plan.md §7）
+   色彩、字体、间距常量集中于此，组件内不硬编码 */
+:root {
+  /* 色彩 */
+  --color-bg: #0f0c09; /* 墨黑底 */
+  --color-panel: #1a1610; /* 面板 */
+  --color-gold: #c9a55c; /* 主金 */
+  --color-gold-bright: #e8c87e; /* 亮金 */
+  --color-cinnabar: #a63a2b; /* 朱砂（动爻点缀） */
+  --color-paper: #ede3cf; /* 纸白正文 */
+  --color-paper-dim: rgba(237, 227, 207, 0.55); /* 次要文字 */
+  --color-line: rgba(201, 165, 92, 0.25); /* 描边 */
+
+  /* 字体：系统衬线栈，零外链 */
+  --font-serif: 'Noto Serif SC', 'Source Han Serif SC', 'STSong', 'SimSun', serif;
+
+  /* 圆角与间距 */
+  --radius-panel: 12px;
+  --radius-control: 8px;
+  --space-page: 24px;
+  --space-gap: 16px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--color-paper);
+  font-family: var(--font-serif);
+  /* 顶部一抹鎏金微光，营造暗夜仪式感 */
+  background:
+    radial-gradient(1200px 800px at 50% -10%, rgba(201, 165, 92, 0.08), transparent),
+    var(--color-bg);
+  background-attachment: fixed;
+}
