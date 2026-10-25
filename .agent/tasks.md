@@ -14,7 +14,7 @@
 ## 任务列表
 
 <!-- 基础设施层 -->
-- [ ] T001: 工程脚手架（Vite + Vue 3 + TS + Vitest + ESLint/Prettier） | 依赖: 无 | 涉及文件: 项目根（package.json / vite.config.ts / tsconfig.json / index.html / src/main.ts / .gitignore） | 验收: `npm run dev` 可打开空白页；`npm run lint`、`npm run test`、`npm run build` 全部通过；依赖版本锁定 package-lock | 覆盖: 无（基础设施）
+- [x] T001: 工程脚手架（Vite + Vue 3 + TS + Vitest + ESLint/Prettier） | 依赖: 无 | 涉及文件: 项目根（package.json / vite.config.ts / tsconfig.json / index.html / src/main.ts / .gitignore） | 验收: `npm run dev` 可打开空白页；`npm run lint`、`npm run test`、`npm run build` 全部通过；依赖版本锁定 package-lock | 覆盖: 无（基础设施）
 - [ ] T002: 主题与视图骨架（甲·鎏金暗夜 design tokens + App.vue 三视图状态机） | 依赖: T001 | 涉及文件: src/ui/theme.css / src/App.vue / src/app.css / src/ui/views/ 空壳 | 验收: dev 打开可见暗色金调页面骨架，三视图可手动切换占位 | 覆盖: 无（基础设施）
 
 <!-- 数据层 -->
@@ -51,6 +51,6 @@
 ## 进度统计
 
 - 总任务数：15
-- 已完成：0
+- 已完成：1
 - 进行中：0
-- 待开始：15
+- 待开始：14
