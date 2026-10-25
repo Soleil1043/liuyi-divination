@@ -25,7 +25,7 @@
 - [x] T005: 摇卦随机引擎（三枚铜钱 → 6/7/8/9 爻值，RNG 可注入） | 依赖: T001 | 涉及文件: src/engine/types.ts / src/engine/cast.ts / tests/engine/cast.spec.ts | 验收: 确定性 RNG 注入断言单次结果；大样本比例测试通过（老阳/老阴/少阳/少阴 = 1/8, 1/8, 3/8, 3/8，±2% 容差） | 覆盖: F02
 - [x] T006: 历法引擎（公历→干支四柱 + 旬空，早晚子时规则） | 依赖: T001 | 涉及文件: src/engine/lunar.d.ts / src/engine/calendar.ts / tests/engine/calendar.spec.ts | 验收: 与权威万年历人工核对 ≥5 个时刻的四柱与旬空；含 23:00–24:00 晚子时用例（日柱不进位、时柱为子时） | 覆盖: F03, E04
 - [x] T007: 纳甲装卦（爻值→本卦/变卦映射、各爻干支） | 依赖: T003 | 涉及文件: src/engine/hexagram.ts / src/engine/najia.ts / tests/engine/ | 验收: 任一爻值序列映射卦名正确；八宫全卦纳甲干支与 najia 参照实现比对通过（抽全 8 宫 × 上下卦组合） | 覆盖: F03
-- [ ] T008: 六亲/六兽/世应/伏神计算 | 依赖: T006, T007 | 涉及文件: src/engine/relatives.ts / tests/engine/ | 验收: 六亲按卦宫五行推演正确；六兽按日干起青龙正确；伏神从卦宫首卦借爻正确；用例含缺亲与不缺亲两类 | 覆盖: F03
+- [x] T008: 六亲/六兽/世应/伏神计算 | 依赖: T006, T007 | 涉及文件: src/engine/relatives.ts / tests/engine/ | 验收: 六亲按卦宫五行推演正确；六兽按日干起青龙正确；伏神从卦宫首卦借爻正确；用例含缺亲与不缺亲两类 | 覆盖: F03
 - [ ] T009: 排盘编排 + golden 用例 | 依赖: T008 | 涉及文件: src/engine/paipan.ts / tests/fixtures/golden.json / tests/engine/paipan.spec.ts | 验收: golden ≥10 卦例（含多动爻、伏神、旬空、晚子时）与 najia/在线排盘逐字段比对全部一致 | 覆盖: F03, E04
 - [ ] T010: 朱熹变占法取辞引擎 | 依赖: T003 | 涉及文件: src/engine/biangua.ts / tests/biangua.spec.ts | 验收: 0–6 动爻七种情形全覆盖用例通过（全静看卦辞；一爻动看动爻爻辞；六爻全动乾坤用九用六、余卦变卦卦辞） | 覆盖: F04, E05
 
@@ -51,6 +51,6 @@
 ## 进度统计
 
 - 总任务数：15
-- 已完成：7
+- 已完成：8
 - 进行中：0
-- 待开始：8
+- 待开始：7
