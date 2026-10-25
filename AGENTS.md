@@ -1,0 +1,69 @@
+# 静爻 (JingYao) — Agent 工作规则
+
+> 本文件是 Agent 的全局指令。不同 Harness 会自动读取项目根目录的规则文件：
+> TRAE / Claude Code → `AGENTS.md` / `CLAUDE.md` | Cursor → `.cursor/rules/*.mdc` | Windsurf → `.windsurfrules` | Cline → `.clinerules`
+> 如果切换 Harness，将本文件内容复制到对应文件即可。
+
+**标准开发流程**：需求分析 → 方案设计 → 构建 → 测试 → 上线。前两个阶段为对话式推进（产物：`.agent/spec.md` 需求规格说明书、`.agent/plan.md` 设计说明书），阶段结束由用户主动宣布；本文件约束构建及之后的执行。
+
+---
+
+## 1. 工作流约束（强制）
+
+1. **启动时恢复上下文**：每次对话开始，先读取 `.agent/` 目录下所有 `.md` 文件，理解当前项目状态
+2. **按清单执行**：严格按 `.agent/tasks.md` 中的任务顺序执行，不跳依赖，不一次做多个任务
+3. **完成即记录**：每完成一个任务，必须执行以下 4 步：
+   - 在 `tasks.md` 中将对应项标记为 `[x]`
+   - 在 `progress.md` 中追加构建记录
+   - 单独 git commit
+   - 提示用户验证，等待确认后再做下一个
+4. **决策留痕**：遇到需要决策的技术选型，先写入 `decisions.md`（说明选项和理由），再继续
+5. **不超前实现**：只实现当前任务，不做"顺便"的额外功能
+6. **不删不改状态文件的历史记录**：`progress.md` 和 `decisions.md` 只追加不删除
+7. **需求变更走修订**：构建中要改功能，先用 `prompts.md` 的「需求变更 Prompt」修订 `spec.md` 并记录变更，同步 plan/tasks 后才改代码，不直接改实现
+8. **设计变动先算账**：任何架构/设计变动（技术栈、数据模型、模块结构、关键接口、第三方依赖），先在对话中分析**优势与代价**（收益、风险、影响范围、迁移成本），经用户主动确认后才执行；同步修订 `plan.md`、在 `decisions.md` 记录、回退受影响任务，不直接改实现（见 `prompts.md` 的「设计变更 Prompt」）
+
+## 2. 技术栈
+
+- 语言：TypeScript ~5.x
+- 框架：Vue 3（Composition API + `<script setup>`）+ Vite
+- 数据存储：浏览器 localStorage（键 `jingyao:records`）+ 静态 JSON 卦典（`src/data/`）
+- 历法库：lunar-javascript（干支四柱 / 旬空 / 节气）
+- 包管理：npm
+- 测试：Vitest
+- 代码质量：ESLint（flat config）+ Prettier
+- 部署：GitHub Pages（纯静态产物，无后端）
+
+## 3. 代码约定
+
+- 所有函数加类型注解
+- 排盘引擎（`src/engine/`）保持纯函数，不依赖 DOM/Vue，可独立测试
+- 设计 token 与常量集中于 `ui/theme.css` 与 `engine` 常量定义，不在组件里散落硬编码
+- 每个模块有清晰的单一职责
+- 错误处理只在系统边界（用户输入、localStorage 读写、第三方历法库），内部模块信任类型约束
+
+## 4. Git 规范
+
+- 每个任务一个 commit：`feat: T0XX [任务简述]`
+- 修复 commit：`fix: T0XX [问题描述]`
+- 文档 commit：`docs: [内容]`
+- 不使用 `--no-verify` 跳过 hook
+- 不使用 `git add -A`，按文件添加
+
+## 5. 文件结构约定
+
+```
+.agent/          ← 项目状态（Agent 读写，不删除）
+  spec.md        ← Phase 1: 需求规格说明书（需求分析产物）
+  plan.md        ← Phase 2: 设计说明书（方案设计产物）
+  tasks.md       ← Phase 3: 任务清单
+  progress.md    ← Phase 4: 构建日志
+  decisions.md   ← 全程: 决策记录
+  prompts.md     ← Prompt 模板参考
+src/
+  engine/        ← 排盘核心（纯函数：历法/纳甲/六亲/取辞/摇卦）
+  data/          ← 卦典 JSON（64 卦卦爻辞原文+白话）
+  storage/       ← localStorage 封装
+  ui/            ← 视图（views/）与组件（components/）
+tests/           ← 测试（golden 用例在 tests/fixtures/）
+```
