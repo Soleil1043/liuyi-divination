@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, defineAsyncComponent, ref } from 'vue'
 
 import type { YaoValue } from './engine/types'
 import { isAvailable, save as saveRecord, update as updateRecord } from './storage/records'
@@ -7,7 +7,9 @@ import type { HexagramRecord } from './storage/records'
 
 import CastView from './ui/views/CastView.vue'
 import HistoryView from './ui/views/HistoryView.vue'
-import ResultView from './ui/views/ResultView.vue'
+
+// 结果页动态加载：摇卦首屏不引入 lunar 排盘链（构建优化，见 progress T015）
+const ResultView = defineAsyncComponent(() => import('./ui/views/ResultView.vue'))
 
 type ViewId = 'casting' | 'result' | 'history'
 
