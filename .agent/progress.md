@@ -296,7 +296,29 @@
 
 **状态**：✅ 通过验证
 
-**Git**：`feat: T012 结果页（排盘表+解读+编辑所问）`
+**Git**：`e00be79` feat: T012 结果页（排盘表+解读+编辑所问）
+
+### [T013] 历史卦例 — 2026-10-26 04:33
+
+**操作**：
+- 实现历史卦例全流程：存储层 + 列表/详情/编辑/删除/降级
+
+**涉及文件**：
+- `src/storage/records.ts` — save/list/update/remove/isAvailable；只存原始数据（id/question/lines/castAt/savedAt）按 D003 展示时重算；写入探针探测可用性（E06）；脏数据防御（损坏 JSON 视为空库、非法条目过滤）
+- `src/ui/components/RecordList.vue` — 卦例卡（卦名+动爻数+时间+所问，卦名由引擎重算）；删除内联二次确认；整卡点击回看
+- `src/ui/views/HistoryView.vue` — 列表页：存储不可用降级提示（E06）、空列表引导"去摇一卦"
+- `src/ui/views/ResultView.vue` — 新增 saved prop，未落库时显示朱砂提示行
+- `src/App.vue` — onDone 自动 saveRecord（F05）；编辑同步 updateRecord + 本地状态；onViewRecord 历史回看复用结果页（引擎重算）；onAgain 清空
+- `tests/storage/records.spec.ts` — 内存/broken localStorage mock：往返、排序、更新、删除、脏数据、E06 降级共 7 例
+
+**验证方式**：
+- `npm run test` ✅ 78 passed（连续两轮确认，新增 7 个；首跑出现一次并发抖动失败，复跑即绿并复核确认）
+- `npm run lint` ✅、`npm run build` ✅（vue-tsc 修正测试类型声明）、dev HTTP 200
+- 浏览器行为目验待用户
+
+**状态**：✅ 通过验证
+
+**Git**：`feat: T013 历史卦例（存储+列表+回看+编辑+删除+降级）`
 
 ---
 

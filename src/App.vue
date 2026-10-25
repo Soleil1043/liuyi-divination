@@ -1,7 +1,9 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 
 import type { YaoValue } from './engine/types'
+import { isAvailable, save as saveRecord, update as updateRecord } from './storage/records'
+import type { HexagramRecord } from './storage/records'
 
 import CastView from './ui/views/CastView.vue'
 import HistoryView from './ui/views/HistoryView.vue'
@@ -11,20 +13,62 @@ type ViewId = 'casting' | 'result' | 'history'
 
 const currentView = ref<ViewId>('casting')
 
-/** 摇卦完成的卦例（question/lines/castAt），结果页消费；T013 接入历史落库 */
-const pendingResult = ref<{ question: string; lines: YaoValue[]; castAt: Date } | null>(null)
+/** 已落库的当前卦例（成卦保存 / 历史回看共用） */
+const activeRecord = ref<HexagramRecord | null>(null)
+/** E06 降级：无法落库时的临时卦例，仍可查看结果但不入历史 */
+const transientResult = ref<{ question: string; lines: YaoValue[]; castAt: Date } | null>(null)
 
+const storageOk = isAvailable()
+
+const resultData = computed(() => {
+  if (activeRecord.value) {
+    return {
+      question: activeRecord.value.question,
+      lines: activeRecord.value.lines,
+      castAt: new Date(activeRecord.value.castAt),
+      saved: true,
+    }
+  }
+  if (transientResult.value) {
+    return { ...transientResult.value, saved: false }
+  }
+  return null
+})
+
+/** F05：成卦自动保存；E06 存储不可用时降级为临时结果 */
 function onDone(payload: { question: string; lines: YaoValue[]; castAt: Date }): void {
-  pendingResult.value = payload
+  const record = storageOk ? saveRecord(payload.question, payload.lines, payload.castAt) : null
+  if (record) {
+    activeRecord.value = record
+    transientResult.value = null
+  } else {
+    activeRecord.value = null
+    transientResult.value = payload
+  }
   currentView.value = 'result'
 }
 
+/** F01：所问之事编辑同步（历史记录 + 当前展示） */
 function onQuestionChange(question: string): void {
-  if (pendingResult.value) pendingResult.value.question = question
+  if (activeRecord.value) {
+    updateRecord(activeRecord.value.id, question)
+    activeRecord.value = { ...activeRecord.value, question }
+  }
+  if (transientResult.value) {
+    transientResult.value = { ...transientResult.value, question }
+  }
+}
+
+/** F05：历史回看（复用排盘引擎重算） */
+function onViewRecord(record: HexagramRecord): void {
+  activeRecord.value = record
+  transientResult.value = null
+  currentView.value = 'result'
 }
 
 function onAgain(): void {
-  pendingResult.value = null
+  activeRecord.value = null
+  transientResult.value = null
   currentView.value = 'casting'
 }
 </script>
@@ -46,14 +90,16 @@ function onAgain(): void {
     <main class="app-main">
       <CastView v-if="currentView === 'casting'" @done="onDone" />
       <ResultView
-        v-else-if="currentView === 'result' && pendingResult"
-        :question="pendingResult.question"
-        :lines="pendingResult.lines"
-        :cast-at="pendingResult.castAt"
+        v-else-if="currentView === 'result' && resultData"
+        :key="activeRecord?.id ?? 'transient'"
+        :question="resultData.question"
+        :lines="resultData.lines"
+        :cast-at="resultData.castAt"
+        :saved="resultData.saved"
         @question-change="onQuestionChange"
         @again="onAgain"
       />
-      <HistoryView v-else />
+      <HistoryView v-else @view="onViewRecord" @cast-again="onAgain" />
     </main>
 
     <footer class="app-footer">仅供传统文化学习与娱乐参考</footer>

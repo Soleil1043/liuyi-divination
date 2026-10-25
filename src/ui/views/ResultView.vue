@@ -14,6 +14,8 @@ const props = defineProps<{
   question: string
   lines: YaoValue[]
   castAt: Date
+  /** 是否已保存到历史（E06 降级时为 false，显示提示） */
+  saved?: boolean
 }>()
 
 const emit = defineEmits<{
@@ -55,6 +57,9 @@ function saveQuestion(): void {
       />
     </div>
     <p class="question-hint">修改后自动保存（失焦生效）</p>
+    <p v-if="props.saved === false" class="not-saved">
+      当前浏览器无法保存历史，本次卦例不会进入历史列表。
+    </p>
 
     <div class="guas">
       <div class="gua-block">
@@ -123,6 +128,13 @@ function saveQuestion(): void {
   font-size: 0.75rem;
   color: var(--color-paper-dim);
   opacity: 0.7;
+}
+
+.not-saved {
+  margin: -8px 0 0;
+  font-size: 0.8rem;
+  color: var(--color-cinnabar);
+  opacity: 0.9;
 }
 
 .guas {
