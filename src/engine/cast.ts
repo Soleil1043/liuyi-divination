@@ -3,7 +3,15 @@ import type { CastResult, CoinSide, YaoValue } from './types'
 /** 随机数发生器：返回 [0, 1)，可注入以获得确定性结果（测试用） */
 export type Rng = () => number
 
-const defaultRng: Rng = Math.random
+/**
+ * 默认随机源：crypto.getRandomValues（密码学级熵池，v1.1 强化）。
+ * 三枚铜钱每枚独立调用一次，互不相关；Node/浏览器均提供 WebCrypto。
+ */
+const defaultRng: Rng = () => {
+  const buf = new Uint32Array(1)
+  globalThis.crypto.getRandomValues(buf)
+  return buf[0] / 0x100000000
+}
 
 function flipCoin(rng: Rng): CoinSide {
   // 每枚铜钱字/背各半；背面为阳

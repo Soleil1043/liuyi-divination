@@ -95,6 +95,7 @@ liuyi-divination/
 | binaryKey | string | 六位 0/1，自下而上；爻值序列→卦的映射键 |
 | palace / worldPos | string / 1–6 | 八宫归属、世爻位置（预计算存表，运行时查表） |
 | guaci | { origin, vernacular } | 卦辞原文 / 白话 |
+| xiang | { origin, vernacular } | 大象传原文（公版，v1.1 新增）/ 白话「卦意」 |
 | yaoci | [6] { origin, vernacular } | 初至上爻辞原文 / 白话 |
 | special | { yongjiu?, yongliu? } | 仅乾坤：用九 / 用六（原文 + 白话） |
 

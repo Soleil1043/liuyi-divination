@@ -62,6 +62,17 @@ describe('castOneYao 确定性（注入 RNG）', () => {
   })
 })
 
+describe('默认随机源（crypto.getRandomValues，v1.1）', () => {
+  it('不注入 RNG 时可正常摇卦，值域合法且三枚面一致于爻值', () => {
+    for (let i = 0; i < 1000; i++) {
+      const { coins, value } = castOneYao()
+      expect([6, 7, 8, 9]).toContain(value)
+      const backs = coins.filter((c) => c === '背').length
+      expect(backsToValue(backs)).toBe(value)
+    }
+  })
+})
+
 describe('castOneYao 概率分布（F02 验收：±2% 容差）', () => {
   it('大样本下老阳/老阴/少阳/少阴 ≈ 1/8, 1/8, 3/8, 3/8', () => {
     const rng = seededRng(20261025)
