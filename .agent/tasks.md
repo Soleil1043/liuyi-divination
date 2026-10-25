@@ -27,7 +27,7 @@
 - [x] T007: 纳甲装卦（爻值→本卦/变卦映射、各爻干支） | 依赖: T003 | 涉及文件: src/engine/hexagram.ts / src/engine/najia.ts / tests/engine/ | 验收: 任一爻值序列映射卦名正确；八宫全卦纳甲干支与 najia 参照实现比对通过（抽全 8 宫 × 上下卦组合） | 覆盖: F03
 - [x] T008: 六亲/六兽/世应/伏神计算 | 依赖: T006, T007 | 涉及文件: src/engine/relatives.ts / tests/engine/ | 验收: 六亲按卦宫五行推演正确；六兽按日干起青龙正确；伏神从卦宫首卦借爻正确；用例含缺亲与不缺亲两类 | 覆盖: F03
 - [x] T009: 排盘编排 + golden 用例 | 依赖: T008 | 涉及文件: src/engine/paipan.ts / tests/fixtures/golden.json / tests/engine/paipan.spec.ts | 验收: golden ≥10 卦例（含多动爻、伏神、旬空、晚子时）与 najia/在线排盘逐字段比对全部一致 | 覆盖: F03, E04
-- [ ] T010: 朱熹变占法取辞引擎 | 依赖: T003 | 涉及文件: src/engine/biangua.ts / tests/biangua.spec.ts | 验收: 0–6 动爻七种情形全覆盖用例通过（全静看卦辞；一爻动看动爻爻辞；六爻全动乾坤用九用六、余卦变卦卦辞） | 覆盖: F04, E05
+- [x] T010: 朱熹变占法取辞引擎 | 依赖: T003 | 涉及文件: src/engine/biangua.ts / tests/biangua.spec.ts | 验收: 0–6 动爻七种情形全覆盖用例通过（全静看卦辞；一爻动看动爻爻辞；六爻全动乾坤用九用六、余卦变卦卦辞） | 覆盖: F04, E05
 
 <!-- UI 功能层 -->
 - [ ] T011: 摇卦页（所问之事填写 + 铜钱摇卦动画 + 逐爻点亮） | 依赖: T002, T005 | 涉及文件: src/ui/views/CastView.vue / src/ui/components/CoinToss.vue / src/ui/components/LineStack.vue | 验收: 空输入无法开始摇卦（E01）；"今日一占"一键填入；连点 6 次成卦且第 n 次为第 n 爻；动画期间连点被防抖（E03）；中途刷新不落库（E02）；动爻有金色呼吸标记 | 覆盖: F01, F02, E01, E02, E03
@@ -51,6 +51,6 @@
 ## 进度统计
 
 - 总任务数：15
-- 已完成：9
+- 已完成：10
 - 进行中：0
-- 待开始：6
+- 待开始：5

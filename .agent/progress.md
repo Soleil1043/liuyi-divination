@@ -230,7 +230,29 @@
 
 **状态**：✅ 通过验证
 
-**Git**：`feat: T009 排盘编排+golden12卦例`
+**Git**：`bc7b35d` feat: T009 排盘编排+golden12卦例
+
+### [T010] 朱熹变占法取辞引擎 — 2026-10-26 03:43
+
+**操作**：
+- 实现变占法取辞 `getCitations(lines)`：0 静卦辞 / 1 动爻辞 / 2 动两爻辞以上为主 / 3 动本卦+变卦卦辞（本卦为贞主）/ 4 动变卦两不变爻辞以下为主 / 5 动变卦唯一不变爻辞 / 6 动乾坤用九用六、余卦变卦卦辞
+- 三爻动「前十卦主贞、后十卦主悔」采用通行简化处理（本卦为主、变卦为参），已在代码注释与本条目记录
+
+**涉及文件**：
+- `src/engine/biangua.ts` — Citation 结构（kind/hexagram/position/text/primary/note）+ 取辞规则
+- `tests/engine/biangua.spec.ts` — 七种情形各 ≥1 例（含乾坤用辞、他卦全动）+ 引文白话非空断言
+
+**自查修正**：两处测试用例构造错误（4 动爻变卦误推为风地观实为坤为地；5/6 动爻序列混入静爻致动爻数不符），引擎实现本身无误——变卦算术再次印证"独立核对"的必要
+
+**验证方式**：
+- `npm run test` ✅ 71 passed（9 文件，新增 10 个）
+- `npm run lint` ✅、`npm run build` ✅
+
+**引擎层（src/engine/）全部完工**：cast / calendar / hexagram / najia / relatives / paipan / biangua
+
+**状态**：✅ 通过验证
+
+**Git**：`feat: T010 变占法取辞（0-6动爻全覆盖）`
 
 ---
 
