@@ -386,3 +386,32 @@
 | P04 | T006 | lunar-javascript sect 流派编号解读颠倒（误用 sect 1 导致晚子时日柱进位） | 裸 node 探针实测：sect 2 = 日柱不进位（spec E04 所需）；显式 setSect(2) 并在 d.ts 注释实测语义 | 已解决 |
 | P05 | T013/T015 | list() 排序歧义：两次 save 落同一毫秒时 savedAt 相等，稳定排序保持插入序导致"新记录在前"断言失败。CI 首跑暴露；T013 本地首跑那次"偶发失败"实为同一 bug，当时误判为 vitest 并发抖动 | 排序加索引 tie-break（同时间戳后写入的在前）；教训：本地偶发失败必须查明根因，不能以"复跑即绿"结案 | 已解决 |
 | P06 | T015 | github.com HTTPS 直连被重置、git 全局代理 7897 上游失效（gh api 直连 api.github.com 正常） | 改走 ssh.github.com:443：ssh-keygen 生成密钥、gh api 上传公钥、~/.ssh/config 配 Host github.com→ssh.github.com:443，remote 切 SSH 后推送成功 | 已解决 |
+
+### [T017] 解读扩写（白话 + 大象传卦意） — 2026-10-26 05:25
+
+**操作**：
+- 白话全量扩写：64 卦辞 3 句式（卦象意象→现实含义→对所问之事的启示）、384 爻辞 2 句式（情境展开+建议）、用辞 2 句
+- 新增大象传数据：`xiang.json` 64 条公版原文（简体通行本），结果页解读区新增「卦意」卡（象曰原文+白话）
+
+**涉及文件**：
+- `src/data/vernacular.json` — 全量重写（约 2 万字）
+- `src/data/xiang.json` — 新建，64 条象传原文
+- `src/data/types.ts` — Hexagram.xiang、VernacularEntry.xiang
+- `src/data/index.ts` — xiang 原文/白话合并
+- `src/ui/views/ResultView.vue` — 卦意卡（解读区顶部）
+- `tests/data/vernacular.spec.ts` — 句数下限测试（卦辞 ≥3、爻辞 ≥2，以句末标点计）+ 象传完整性与句式断言
+
+**象传原文核对**：从 bollwarm/ZHOUYI（繁体公版）程序化提取 64 条逐条比对——全部差异为断句符号（。/；）或源库录入异文（竭/遏、勿/弗履、修身/修省、脱「于」字），本库与通行本一致，无需修改
+
+**过程记录**：
+- 句数测试逐批抓出单句条目 → 批量把「情境——判断」破折号结构规范化为两句（语义无损、文风更利落）→ 剩 9 条无破折号单句逐条人工补写
+- 象传句式断言先后放宽（先王以/后以/大人以/上以——剥卦为「上以」），以经文实际为准
+
+**验证方式**：
+- `npm run test` ✅ 81 passed（两轮，新增句数/象传/crypto 默认源 3 组）
+- `npm run lint` ✅、`npm run build` ✅、拆句后抽查语义通顺
+- 阅读体验待用户线上目验
+
+**状态**：✅ 通过验证
+
+**Git**：`feat: T017 解读扩写（白话三句式+大象传卦意）`

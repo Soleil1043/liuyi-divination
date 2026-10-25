@@ -19,6 +19,32 @@ describe('白话译文完整性', () => {
     expect(yaociCount).toBe(384)
   })
 
+  it('v1.1 扩写标准：卦辞白话 ≥3 句、爻辞白话 ≥2 句（以句号/问号/叹号计）', () => {
+    const sentenceCount = (t: string): number =>
+      (t.match(/[。？！]/g) ?? []).length
+    for (const h of hexagrams) {
+      expect(
+        sentenceCount(h.guaci.vernacular),
+        `${h.name} 卦辞白话句数`,
+      ).toBeGreaterThanOrEqual(3)
+      h.yaoci.forEach((y, i) => {
+        expect(
+          sentenceCount(y.vernacular),
+          `${h.name} 第${i + 1}爻白话句数`,
+        ).toBeGreaterThanOrEqual(2)
+      })
+    }
+  })
+
+  it('64 条象传白话（卦意）非空', () => {
+    for (const h of hexagrams) {
+      expect(h.xiang.origin.length, `${h.name} 象曰原文`).toBeGreaterThan(0)
+      // 大象传句式：君子以 / 先王以 / 后以 / 大人以 / 上以（剥为上以）
+      expect(h.xiang.origin, `${h.name} 象曰格式`).toMatch(/君子以|先王以|后以|大人以|上以/)
+      expect(h.xiang.vernacular.length, `${h.name} 象曰白话`).toBeGreaterThan(0)
+    }
+  })
+
   it('乾坤用九/用六的白话非空（合计 450 条译文闭环）', () => {
     const qian = hexagrams.find((h) => h.number === 1)!
     const kun = hexagrams.find((h) => h.number === 2)!

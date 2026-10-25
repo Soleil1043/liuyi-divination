@@ -21,6 +21,8 @@ export interface SpecialCi {
 /** 白话译文条目（按卦序号组织，与 hexagrams.json 的原文分开存放） */
 export interface VernacularEntry {
   guaci: string
+  /** 大象传白话（卦意） */
+  xiang: string
   /** 自下而上 6 条 */
   yaoci: string[]
   /** 仅乾坤：用九/用六 的白话 */
@@ -47,6 +49,8 @@ export interface Hexagram {
   /** 六位 0/1，自下而上（1=阳 0=阴） */
   binaryKey: string
   guaci: TextPair
+  /** 大象传原文 / 白话「卦意」（v1.1 新增） */
+  xiang: TextPair
   /** 自下而上 6 条爻辞 */
   yaoci: TextPair[]
   /** 仅乾坤非空（乾为用九，坤为用六） */

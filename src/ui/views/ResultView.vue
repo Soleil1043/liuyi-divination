@@ -77,6 +77,16 @@ function saveQuestion(): void {
     </p>
 
     <PaipanTable :pan="pan" />
+
+    <!-- v1.1：卦意（本卦大象传） -->
+    <article class="xiang-card">
+      <header>
+        <span class="source">{{ pan.ben.name }} · 卦意</span>
+      </header>
+      <p class="vernacular">{{ pan.ben.xiang.vernacular }}</p>
+      <blockquote class="origin">象曰：{{ pan.ben.xiang.origin }}</blockquote>
+    </article>
+
     <ReadingPanel :citations="citations" />
 
     <div class="actions">
@@ -176,6 +186,44 @@ function saveQuestion(): void {
   font-size: 0.85rem;
   color: var(--color-paper-dim);
   letter-spacing: 0.2em;
+}
+
+.xiang-card {
+  background: var(--color-panel);
+  border: 1px solid rgba(201, 165, 92, 0.45);
+  border-radius: var(--radius-panel);
+  padding: 18px 20px;
+  box-shadow: 0 0 24px rgba(201, 165, 92, 0.08);
+}
+
+.xiang-card header {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.xiang-card .source {
+  font-size: 0.85rem;
+  letter-spacing: 0.15em;
+  color: var(--color-gold);
+}
+
+.xiang-card .vernacular {
+  margin: 0 0 10px;
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: var(--color-paper);
+}
+
+.xiang-card .origin {
+  margin: 0;
+  padding: 10px 14px;
+  border-left: 2px solid var(--color-gold);
+  background: rgba(201, 165, 92, 0.06);
+  font-size: 0.9rem;
+  line-height: 1.7;
+  color: var(--color-paper-dim);
 }
 
 .actions {

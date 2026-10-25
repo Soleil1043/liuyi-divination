@@ -40,7 +40,7 @@
 
 <!-- 验收反馈增强（spec v1.1） -->
 - [x] T016: 随机源升级 crypto.getRandomValues | 依赖: T005 | 涉及文件: src/engine/cast.ts | 验收: 默认 RNG 换为密码学级随机（三枚铜钱每枚独立取熵）；既有注入 RNG 测试与 20 万样本分布测试全部通过 | 覆盖: F02
-- [ ] T017: 解读扩写（白话扩写 + 大象传卦意） | 依赖: T004 | 涉及文件: src/data/vernacular.json / src/data/xiang.json / src/data/types.ts / src/data/index.ts / src/ui/components/ReadingPanel.vue / tests/ | 验收: 64 卦卦辞白话 ≥3 句（意象→含义→启示）、384 爻辞白话 ≥2 句（情境+建议）、64 条大象传原文经公版核对且白话非空；ReadingPanel 卦辞卡展示「象曰」小节；全部门禁通过 | 覆盖: F04
+- [x] T017: 解读扩写（白话扩写 + 大象传卦意） | 依赖: T004 | 涉及文件: src/data/vernacular.json / src/data/xiang.json / src/data/types.ts / src/data/index.ts / src/ui/views/ResultView.vue / tests/ | 验收: 64 卦卦辞白话 ≥3 句（意象→含义→启示）、384 爻辞白话 ≥2 句（情境+建议）、64 条大象传原文经公版核对且白话非空；结果页展示「卦意」小节；全部门禁通过 | 覆盖: F04
 
 ---
 
@@ -55,6 +55,6 @@
 ## 进度统计
 
 - 总任务数：17
-- 已完成：16
-- 进行中：1
+- 已完成：17
+- 进行中：0
 - 待开始：0
