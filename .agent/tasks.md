@@ -35,7 +35,7 @@
 - [x] T013: 历史卦例（localStorage 存取 + 列表/详情/编辑/删除） | 依赖: T012 | 涉及文件: src/storage/records.ts / src/ui/views/HistoryView.vue / src/ui/components/RecordList.vue / tests/ | 验收: 成卦自动保存并出现在列表；刷新不丢；详情回看复用排盘引擎重算；编辑所问同步；删除需二次确认；localStorage 不可用时降级提示（E06） | 覆盖: F05, E06
 
 <!-- CI/CD -->
-- [ ] T014: CI 流水线（GitHub Actions lint + test） | 依赖: T013 | 涉及文件: .github/workflows/ci.yml | 验收: push 后自动跑 lint + test 全绿 | 覆盖: 无（基础设施）
+- [x] T014: CI 流水线（GitHub Actions lint + test） | 依赖: T013 | 涉及文件: .github/workflows/ci.yml | 验收: push 后自动跑 lint + test 全绿 | 覆盖: 无（基础设施）
 - [ ] T015: 部署与文档（GitHub Pages 发布 + README 完善） | 依赖: T014 | 涉及文件: .github/workflows/deploy.yml / README.md | 验收: main 分支 push 自动构建并发布 Pages，线上可访问；README 含安装/运行/测试说明 | 覆盖: 无（交付文档）
 
 ---
@@ -51,6 +51,6 @@
 ## 进度统计
 
 - 总任务数：15
-- 已完成：13
+- 已完成：14
 - 进行中：0
-- 待开始：2
+- 待开始：1

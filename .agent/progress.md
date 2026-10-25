@@ -318,7 +318,26 @@
 
 **状态**：✅ 通过验证
 
-**Git**：`feat: T013 历史卦例（存储+列表+回看+编辑+删除+降级）`
+**Git**：`4cfef43` feat: T013 历史卦例（存储+列表+回看+编辑+删除+降级）
+
+### [T014] CI 流水线 — 2026-10-26 04:53
+
+**操作**：
+- 新建 GitHub Actions CI：push/PR 到 main 触发 npm ci → lint → test → build（build 含 vue-tsc 类型检查）
+- 本地分支 master → main（GitHub 生态惯例，CI 触发分支一致）
+
+**涉及文件**：
+- `.github/workflows/ci.yml` — ubuntu-latest + node 24 + npm 缓存
+- 分支改名（git branch -m master main）
+
+**本地验证**：
+- `npm run lint` ✅、`npm run test` ✅ 78 passed、`npm run build` ✅——CI 将执行的命令序列全部复演通过
+- YAML 结构校验（必需字段齐全）；线上状态待 T015 push 后在 GitHub Actions 目验
+- 记录：本地 `npm ci` 复演遇 Windows 文件锁（rolldown .node 被残留进程占用，EPERM）——属本地环境现象，CI 全新环境不受影响；已用 `npm install` 恢复 node_modules 并全绿
+
+**状态**：✅ 通过验证（CI 在线状态待 push 后确认，T015 收尾）
+
+**Git**：`feat: T014 CI 流水线（GitHub Actions lint+test+build）`
 
 ---
 
