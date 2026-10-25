@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 
+import type { YaoValue } from './engine/types'
+
 import CastView from './ui/views/CastView.vue'
 import HistoryView from './ui/views/HistoryView.vue'
 import ResultView from './ui/views/ResultView.vue'
@@ -8,6 +10,9 @@ import ResultView from './ui/views/ResultView.vue'
 type ViewId = 'casting' | 'result' | 'history'
 
 const currentView = ref<ViewId>('casting')
+
+/** 摇卦完成的卦例（question/lines/castAt），T012 由结果页消费并落库 */
+const pendingResult = ref<{ question: string; lines: YaoValue[]; castAt: Date } | null>(null)
 </script>
 
 <template>
@@ -18,10 +23,6 @@ const currentView = ref<ViewId>('casting')
         <button :class="{ active: currentView === 'casting' }" @click="currentView = 'casting'">
           摇卦
         </button>
-        <!-- 「结果」入口为临时占位，T011/T012 接通摇卦流程后移除 -->
-        <button :class="{ active: currentView === 'result' }" @click="currentView = 'result'">
-          结果
-        </button>
         <button :class="{ active: currentView === 'history' }" @click="currentView = 'history'">
           历史
         </button>
@@ -29,7 +30,7 @@ const currentView = ref<ViewId>('casting')
     </header>
 
     <main class="app-main">
-      <CastView v-if="currentView === 'casting'" />
+      <CastView v-if="currentView === 'casting'" @done="pendingResult = $event" />
       <ResultView v-else-if="currentView === 'result'" />
       <HistoryView v-else />
     </main>

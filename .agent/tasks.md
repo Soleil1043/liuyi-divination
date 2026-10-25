@@ -30,7 +30,7 @@
 - [x] T010: 朱熹变占法取辞引擎 | 依赖: T003 | 涉及文件: src/engine/biangua.ts / tests/biangua.spec.ts | 验收: 0–6 动爻七种情形全覆盖用例通过（全静看卦辞；一爻动看动爻爻辞；六爻全动乾坤用九用六、余卦变卦卦辞） | 覆盖: F04, E05
 
 <!-- UI 功能层 -->
-- [ ] T011: 摇卦页（所问之事填写 + 铜钱摇卦动画 + 逐爻点亮） | 依赖: T002, T005 | 涉及文件: src/ui/views/CastView.vue / src/ui/components/CoinToss.vue / src/ui/components/LineStack.vue | 验收: 空输入无法开始摇卦（E01）；"今日一占"一键填入；连点 6 次成卦且第 n 次为第 n 爻；动画期间连点被防抖（E03）；中途刷新不落库（E02）；动爻有金色呼吸标记 | 覆盖: F01, F02, E01, E02, E03
+- [x] T011: 摇卦页（所问之事填写 + 铜钱摇卦动画 + 逐爻点亮） | 依赖: T002, T005 | 涉及文件: src/ui/views/CastView.vue / src/ui/components/CoinToss.vue / src/ui/components/LineStack.vue | 验收: 空输入无法开始摇卦（E01）；"今日一占"一键填入；连点 6 次成卦且第 n 次为第 n 爻；动画期间连点被防抖（E03）；中途刷新不落库（E02）；动爻有金色呼吸标记 | 覆盖: F01, F02, E01, E02, E03
 - [ ] T012: 结果页（完整排盘表 + 白话/原文解读 + 编辑所问之事） | 依赖: T004, T009, T010, T011 | 涉及文件: src/ui/views/ResultView.vue / src/ui/components/PaipanTable.vue / src/ui/components/Reading.vue | 验收: 摇卦完成流转至此页；排盘表字段齐全（四柱、纳甲、六亲、六兽、世应、旬空、伏神、变卦）；解读白话在前原文在后；编辑所问保存后即时生效 | 覆盖: F01, F03, F04
 - [ ] T013: 历史卦例（localStorage 存取 + 列表/详情/编辑/删除） | 依赖: T012 | 涉及文件: src/storage/records.ts / src/ui/views/HistoryView.vue / src/ui/components/RecordList.vue / tests/ | 验收: 成卦自动保存并出现在列表；刷新不丢；详情回看复用排盘引擎重算；编辑所问同步；删除需二次确认；localStorage 不可用时降级提示（E06） | 覆盖: F05, E06
 
@@ -51,6 +51,6 @@
 ## 进度统计
 
 - 总任务数：15
-- 已完成：10
+- 已完成：11
 - 进行中：0
-- 待开始：5
+- 待开始：4

@@ -252,7 +252,28 @@
 
 **状态**：✅ 通过验证
 
-**Git**：`feat: T010 变占法取辞（0-6动爻全覆盖）`
+**Git**：`360486b` feat: T010 变占法取辞（0-6动爻全覆盖）
+
+### [T011] 摇卦页 UI — 2026-10-26 03:55
+
+**操作**：
+- 实现摇卦页完整交互：所问之事项/铜钱动画/逐爻点亮/防抖/完成事件
+
+**涉及文件**：
+- `src/ui/components/CoinToss.vue` — SVG 圆形方孔铜钱（字面饰点/背面四出纹区分），3D 翻转 keyframes 级联 0.85s，钱下标注「字/背」
+- `src/ui/components/LineStack.vue` — 六爻自上而下渲染；已成爻金色点亮（stagger 出现动画），动爻朱砂点 + 金色呼吸光；未成爻虚线占位、下一爻位描边提示
+- `src/ui/views/CastView.vue` — 所问之事输入（必填，trim 校验 E01）+「今日一占」一键填入；摇卦按钮（第 n 爻文案）；E03 防抖（rolling 期间 canShake=false）；E02 进行中状态纯内存不落库；第 6 爻落定 1.2s 后 emit `done {question, lines, castAt}`（起卦时刻以第一爻为准）
+- `src/App.vue` — 移除 T002 的临时「结果」按钮；接住 done 事件暂存 pendingResult（T012 消费）
+- `eslint.config.js` — 新增 globals.browser（修复 window no-undef）+ devDependencies 加 globals@17.13.0
+
+**验证方式**：
+- `npm run test` ✅ 71 passed（门禁）
+- `npm run lint` ✅、`npm run build` ✅（产物 69.9 kB / gzip 27.7 kB）
+- `npm run dev` ✅ HTTP 200、CastView 经 Vite 正常编译；交互行为（空输入拦截/6 次成卦/防抖/呼吸标记）待用户浏览器目验
+
+**状态**：✅ 通过验证
+
+**Git**：`feat: T011 摇卦页（铜钱动画+逐爻点亮+防抖）`
 
 ---
 
